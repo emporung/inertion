@@ -1,0 +1,19 @@
+
+build/
+
+# Временные файлы
+*.exe
+*.o
+*.obj
+*.a
+*.dll
+
+# Файлы IDE
+.vscode/
+.idea/
+
+# Файлы CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
