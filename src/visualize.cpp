@@ -3,20 +3,16 @@
 #include <iostream>
 #include <cstdlib>
 
-float camDistance = 8.0f;   // начальное расстояние камеры
-float angleX = 30.0f;        // поворот по X
-float angleY = 30.0f;        // поворот по Y
-
-// Параметры эллипсоида
-float rx = 1.0f, ry = 1.0f, rz = 1.0f;
-float angle = 0.0f;
-
-// Параметры тела
-int bodyType = 1;      // 1-куб, 2-сфера, 3-параллелепипед, 4-цилиндр
-float p1 = 1.0f, p2 = 1.0f, p3 = 1.0f;  // размеры
+float camDistance {8.0f};
+float angleX {30.0f};
+float angleY {30.0f};
+float rx {1.0f}, ry {1.0f}, rz {1.0f};
+float angle {0.0f};
+int bodyType {1};
+float p1 {1.0f}, p2 {1.0f}, p3 {1.0f};
 
 // Ось вращения (добавлено)
-float axisX = 1.0f, axisY = 0.0f, axisZ = 0.0f;
+float axisX {1.0f}, axisY {0.0f}, axisZ {0.0f};
 
 void keyboard(unsigned char key, int x, int y) {
     switch (key) {
