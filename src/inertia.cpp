@@ -79,3 +79,14 @@ Eigen::Matrix3f inertiaCylinder(float mass, float radius, float length) {
     I(2,2) = I(1,1);
     return I;
 }
+
+Eigen::Matrix3f inertiaCone(float mass, float radius, float height) {
+    Eigen::Matrix3f I;
+    I.setZero();
+    float Ixx = (3.0f/20.0f) * mass * (radius*radius + height*height/4.0f);
+    float Izz = (3.0f/10.0f) * mass * radius*radius;
+    I(0,0) = Ixx;
+    I(1,1) = Ixx;
+    I(2,2) = Izz;
+    return I;
+}

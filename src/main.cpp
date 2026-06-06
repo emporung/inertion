@@ -9,6 +9,7 @@ int main() {
         std::cout << "2 - Сфера\n";
         std::cout << "3 - Параллелепипед\n";
         std::cout << "4 - Цилиндр\n";
+	std::cout << "5 - Конус\n";
         std::cout << "0 - Выход из программы\n";
         
         int choice = (int)readFloat("Выберите тело (0-4): ");
@@ -18,7 +19,7 @@ int main() {
             break;
         }
         
-        if (choice < 1 || choice > 4) {
+        if (choice < 1 || choice > 5) {
             std::cout << "Неверный выбор. Попробуйте снова.\n";
             continue;
         }
@@ -49,9 +50,13 @@ int main() {
                 break;
             case 4:
                 r = readFloat("Радиус (м): ");
-                h = readFloat("Высота цилиндра: ");
+                h = readFloat("Высота: ");
                 I = inertiaCylinder(m, r, h);
                 break;
+	    case 5:
+		r = readFloat("Радиус (м): ");
+                h = readFloat("Высота: ");
+                I = inertiaCone(m, r, h);
         }
         
         float moment = I(0,0) * axis(0)*axis(0) +
@@ -88,6 +93,7 @@ int main() {
             case 2: p1 = r; break;
             case 3: p1 = a; p2 = b; p3 = c; break;
             case 4: p1 = r; p2 = h; break;
+            case 5: p1 = r; p2 = h; break;
         }
         
         std::string cmd = "start /b build\\visualize.exe " +

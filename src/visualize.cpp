@@ -77,7 +77,8 @@ void drawEllipsoid() {
 void drawBody() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glColor3f(1.0f, 0.6f, 0.2f);
-    
+    glEnable(GL_LINE_SMOOTH);
+glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     if (bodyType == 1) {  // Куб
         float s = p1 / 2.0f;
         
@@ -96,17 +97,11 @@ void drawBody() {
         glVertex3f( s,  s,  s); glVertex3f( s, -s,  s);
         glEnd();
     }
-    else if (bodyType == 2) {  // Сфера (куб в каркасе)
-        float s = p1 / 2.0f;
-        
-        glBegin(GL_QUADS);
-        glVertex3f(-s,-s, s); glVertex3f( s,-s, s); glVertex3f( s, s, s); glVertex3f(-s, s, s);
-        glVertex3f(-s,-s,-s); glVertex3f(-s, s,-s); glVertex3f( s, s,-s); glVertex3f( s,-s,-s);
-        glVertex3f(-s, s,-s); glVertex3f(-s, s, s); glVertex3f( s, s, s); glVertex3f( s, s,-s);
-        glVertex3f(-s,-s,-s); glVertex3f( s,-s,-s); glVertex3f( s,-s, s); glVertex3f(-s,-s, s);
-        glVertex3f(-s,-s,-s); glVertex3f(-s,-s, s); glVertex3f(-s, s, s); glVertex3f(-s, s,-s);
-        glVertex3f( s,-s,-s); glVertex3f( s, s,-s); glVertex3f( s, s, s); glVertex3f( s,-s, s);
-        glEnd();
+    else if (bodyType == 2) {  
+    	float radius = p1;
+    	glColor3f(1.0f, 0.6f, 0.2f);
+    	glutWireSphere(radius, 30, 30); 
+
     }
     else if (bodyType == 3) {  // Параллелепипед
         float sx = p1/2, sy = p2/2, sz = p3/2;
@@ -156,6 +151,36 @@ void drawBody() {
         glEnd();
     }
     
+    else if (bodyType == 5) {  // Конус
+    	float r = p1;   // радиус
+    	float h = p2;   // высота
+    	int slices = 30;
+    	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    	glColor3f(1.0f, 0.6f, 0.2f);
+    
+    // Боковая поверхность: треугольники от вершины (0, h/2) до основания
+    	float topZ = h / 2.0f;     // вершина
+    	float bottomZ = -h / 2.0f; // основание (центр масс на высоте h/4? Не критично для каркаса)
+    // Для простоты рисуем конус с вершиной в (0,0,topZ) и основанием на z = bottomZ
+    	glBegin(GL_TRIANGLE_FAN);
+    	glVertex3f(0, 0, topZ);
+    	for (int i = 0; i <= slices; i++) {
+            float angle = 2.0f * M_PI * i / slices;
+            float x = r * cos(angle);
+            float y = r * sin(angle);
+            glVertex3f(x, y, bottomZ);
+        }
+        glEnd();
+    // Окружность основания
+    	glBegin(GL_LINE_LOOP);
+    	for (int i = 0; i <= slices; i++) {
+            float angle = 2.0f * M_PI * i / slices;
+            float x = r * cos(angle);
+            float y = r * sin(angle);
+            glVertex3f(x, y, bottomZ);
+    	}
+    	glEnd();
+    }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
@@ -175,7 +200,14 @@ void display() {
     glColor3f(0,1,0); glVertex3f(0,-5,0); glVertex3f(0,5,0);
     glColor3f(0,0,1); glVertex3f(0,0,-5); glVertex3f(0,0,5);
     glEnd();
-    
+    glBegin(GL_LINES);
+// Красная линия вдоль X
+glColor3f(1,0,0); glVertex3f(0,0,0); glVertex3f(3,0,0);
+// Зелёная линия вдоль Y
+glColor3f(0,1,0); glVertex3f(0,0,0); glVertex3f(0,3,0);
+// Синяя линия вдоль Z
+glColor3f(0,0,1); glVertex3f(0,0,0); glVertex3f(0,0,3);
+glEnd();
     // Ось вращения (жёлтая) — рисуем от -5 до +5 вдоль оси
     float L = 5.0f;
     glBegin(GL_LINES);
