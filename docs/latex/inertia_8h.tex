@@ -1,0 +1,196 @@
+\doxysection{src/inertia.h File Reference}
+\hypertarget{inertia_8h}{}\label{inertia_8h}\index{src/inertia.h@{src/inertia.h}}
+
+
+Header file with functions for inertia tensor calculation.  
+
+
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{inertia_8h_a0bd73944697429f4c95a0509c7821062}{read\+Float}} (const std\+::string \&prompt)
+\begin{DoxyCompactList}\small\item\em Reads a float from console with error checking. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector3f \mbox{\hyperlink{inertia_8h_a6448f281b4792926b542f691d04f78c2}{normalize\+Vector}} (float x, float y, float z)
+\begin{DoxyCompactList}\small\item\em Normalizes a vector (makes length = 1). \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix3f \mbox{\hyperlink{inertia_8h_a341049917a760432a5aded3a355eb024}{inertia\+Cube}} (float mass, float side)
+\begin{DoxyCompactList}\small\item\em Inertia tensor of a cube. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix3f \mbox{\hyperlink{inertia_8h_a10e4fd6bbff67b63b58867dc85ab838a}{inertia\+Sphere}} (float mass, float radius)
+\begin{DoxyCompactList}\small\item\em Inertia tensor of a solid sphere. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix3f \mbox{\hyperlink{inertia_8h_aa60c538f527215b16f53fc7d5d1f0339}{inertia\+Box}} (float mass, float a, float b, float c)
+\begin{DoxyCompactList}\small\item\em Inertia tensor of a rectangular box. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix3f \mbox{\hyperlink{inertia_8h_a21e77d0ff92eab3fdb688769e68a1617}{inertia\+Cylinder}} (float mass, float radius, float length)
+\begin{DoxyCompactList}\small\item\em Inertia tensor of a cylinder (oriented along X axis). \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix3f \mbox{\hyperlink{inertia_8h_a0d459ebbb8899eecded57248b96989a1}{inertia\+Cone}} (float mass, float radius, float height)
+\begin{DoxyCompactList}\small\item\em Inertia tensor of a cone (apex up, Z axis). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file with functions for inertia tensor calculation. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{inertia_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{inertia_8h_aa60c538f527215b16f53fc7d5d1f0339}\index{inertia.h@{inertia.h}!inertiaBox@{inertiaBox}}
+\index{inertiaBox@{inertiaBox}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{inertiaBox()}{inertiaBox()}}
+{\footnotesize\ttfamily \label{inertia_8h_aa60c538f527215b16f53fc7d5d1f0339} 
+Eigen\+::\+Matrix3f inertia\+Box (\begin{DoxyParamCaption}\item[{float}]{mass}{, }\item[{float}]{a}{, }\item[{float}]{b}{, }\item[{float}]{c}{}\end{DoxyParamCaption})}
+
+
+
+Inertia tensor of a rectangular box. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & Mass (kg) \\
+\hline
+{\em a} & Length along X (m) \\
+\hline
+{\em b} & Length along Y (m) \\
+\hline
+{\em c} & Length along Z (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diagonal 3x3 matrix 
+\end{DoxyReturn}
+\Hypertarget{inertia_8h_a0d459ebbb8899eecded57248b96989a1}\index{inertia.h@{inertia.h}!inertiaCone@{inertiaCone}}
+\index{inertiaCone@{inertiaCone}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{inertiaCone()}{inertiaCone()}}
+{\footnotesize\ttfamily \label{inertia_8h_a0d459ebbb8899eecded57248b96989a1} 
+Eigen\+::\+Matrix3f inertia\+Cone (\begin{DoxyParamCaption}\item[{float}]{mass}{, }\item[{float}]{radius}{, }\item[{float}]{height}{}\end{DoxyParamCaption})}
+
+
+
+Inertia tensor of a cone (apex up, Z axis). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & Mass (kg) \\
+\hline
+{\em radius} & Base radius (m) \\
+\hline
+{\em height} & Cone height (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diagonal 3x3 matrix 
+\end{DoxyReturn}
+\Hypertarget{inertia_8h_a341049917a760432a5aded3a355eb024}\index{inertia.h@{inertia.h}!inertiaCube@{inertiaCube}}
+\index{inertiaCube@{inertiaCube}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{inertiaCube()}{inertiaCube()}}
+{\footnotesize\ttfamily \label{inertia_8h_a341049917a760432a5aded3a355eb024} 
+Eigen\+::\+Matrix3f inertia\+Cube (\begin{DoxyParamCaption}\item[{float}]{mass}{, }\item[{float}]{side}{}\end{DoxyParamCaption})}
+
+
+
+Inertia tensor of a cube. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & Mass (kg) \\
+\hline
+{\em side} & Side length (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diagonal 3x3 matrix 
+\end{DoxyReturn}
+\Hypertarget{inertia_8h_a21e77d0ff92eab3fdb688769e68a1617}\index{inertia.h@{inertia.h}!inertiaCylinder@{inertiaCylinder}}
+\index{inertiaCylinder@{inertiaCylinder}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{inertiaCylinder()}{inertiaCylinder()}}
+{\footnotesize\ttfamily \label{inertia_8h_a21e77d0ff92eab3fdb688769e68a1617} 
+Eigen\+::\+Matrix3f inertia\+Cylinder (\begin{DoxyParamCaption}\item[{float}]{mass}{, }\item[{float}]{radius}{, }\item[{float}]{length}{}\end{DoxyParamCaption})}
+
+
+
+Inertia tensor of a cylinder (oriented along X axis). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & Mass (kg) \\
+\hline
+{\em radius} & Base radius (m) \\
+\hline
+{\em length} & Cylinder height (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diagonal 3x3 matrix 
+\end{DoxyReturn}
+\Hypertarget{inertia_8h_a10e4fd6bbff67b63b58867dc85ab838a}\index{inertia.h@{inertia.h}!inertiaSphere@{inertiaSphere}}
+\index{inertiaSphere@{inertiaSphere}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{inertiaSphere()}{inertiaSphere()}}
+{\footnotesize\ttfamily \label{inertia_8h_a10e4fd6bbff67b63b58867dc85ab838a} 
+Eigen\+::\+Matrix3f inertia\+Sphere (\begin{DoxyParamCaption}\item[{float}]{mass}{, }\item[{float}]{radius}{}\end{DoxyParamCaption})}
+
+
+
+Inertia tensor of a solid sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & Mass (kg) \\
+\hline
+{\em radius} & Radius (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diagonal 3x3 matrix 
+\end{DoxyReturn}
+\Hypertarget{inertia_8h_a6448f281b4792926b542f691d04f78c2}\index{inertia.h@{inertia.h}!normalizeVector@{normalizeVector}}
+\index{normalizeVector@{normalizeVector}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{normalizeVector()}{normalizeVector()}}
+{\footnotesize\ttfamily \label{inertia_8h_a6448f281b4792926b542f691d04f78c2} 
+Eigen\+::\+Vector3f normalize\+Vector (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Normalizes a vector (makes length = 1). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X component \\
+\hline
+{\em y} & Y component \\
+\hline
+{\em z} & Z component \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Normalized vector 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & If vector length is zero \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{inertia_8h_a0bd73944697429f4c95a0509c7821062}\index{inertia.h@{inertia.h}!readFloat@{readFloat}}
+\index{readFloat@{readFloat}!inertia.h@{inertia.h}}
+\doxysubsubsection{\texorpdfstring{readFloat()}{readFloat()}}
+{\footnotesize\ttfamily \label{inertia_8h_a0bd73944697429f4c95a0509c7821062} 
+float read\+Float (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prompt}{}\end{DoxyParamCaption})}
+
+
+
+Reads a float from console with error checking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prompt} & Input prompt \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Entered number 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & On EOF \\
+\hline
+{\em std\+::invalid\+\_\+argument} & On non-\/numeric input \\
+\hline
+\end{DoxyExceptions}

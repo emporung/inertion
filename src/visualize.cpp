@@ -20,8 +20,8 @@ void keyboard(unsigned char key, int x, int y) {
     break;
   case '-':
     camDistance += 0.5f;
-    if (camDistance > 20.0f)
-      camDistance = 20.0f;
+    if (camDistance > 50.0f)
+      camDistance = 50.0f;
     break;
   case 27:
     exit(0);
