@@ -29,7 +29,7 @@ int main() {
     float y = readFloat("Ордината оси: ");
     float z = readFloat("Аппликата оси: ");
 
-    Eigen::Vector3f axis;
+    Eigen::Vector3f axis{};
     try {
       axis = normalizeVector(x, y, z);
     } catch (const std::invalid_argument &e) {
@@ -37,8 +37,8 @@ int main() {
       continue;
     }
 
-    Eigen::Matrix3f I;
-    float a = 0, b = 0, c = 0, r = 0, h = 0;
+    Eigen::Matrix3f I{};
+    float a{0}, b{0}, c{0}, r{0}, h{0};
 
     switch (choice) {
     case 1:
@@ -90,8 +90,8 @@ int main() {
     std::cout << "I2 = " << I2 << "\n";
     std::cout << "I3 = " << I3 << std::endl;
 
-    int bodyType = choice;
-    float p1 = 0, p2 = 0, p3 = 0;
+    int bodyType{choice};
+    float p1{0}, p2{0}, p3{0};
     switch (bodyType) {
     case 1:
       p1 = a;
