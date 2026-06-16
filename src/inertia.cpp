@@ -21,8 +21,8 @@ float readFloat(const std::string &prompt) {
         throw std::invalid_argument{"Ошибка! Введите число"};
       }
       return value;
-    } catch (const std::invalid_argument &e) {
-      std::cout << e.what() << ": ";
+    } catch (const std::invalid_argument &) {
+      std::cout << "Ошибка! Введите число: ";
     } catch (const std::out_of_range &) {
       std::cout << "Число слишком большое. Попробуйте ещё раз: ";
     }

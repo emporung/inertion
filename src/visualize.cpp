@@ -2,7 +2,9 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
-
+#ifdef _WIN32
+#include <windows.h>
+#endif
 float camDistance{8.0f};
 float angleX{30.0f};
 float angleY{30.0f};
@@ -55,17 +57,17 @@ void drawEllipsoid() {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   for (int i{0}; i < stacks; ++i) {
-    float theta1 = i * M_PI / stacks;
-    float theta2 = (i + 1) * M_PI / stacks;
+    float theta1{i * M_PI / stacks};
+    float theta2{(i + 1) * M_PI / stacks};
     glBegin(GL_QUAD_STRIP);
     for (int j{0}; j <= slices; ++j) {
-      float phi = j * 2 * M_PI / slices;
-      float x1 = rx * sin(theta1) * cos(phi);
-      float y1 = ry * sin(theta1) * sin(phi);
-      float z1 = rz * cos(theta1);
-      float x2 = rx * sin(theta2) * cos(phi);
-      float y2 = ry * sin(theta2) * sin(phi);
-      float z2 = rz * cos(theta2);
+      float phi{j * 2 * M_PI / slices};
+      float x1{rx * sin(theta1) * cos(phi)};
+      float y1{ry * sin(theta1) * sin(phi)};
+      float z1{rz * cos(theta1)};
+      float x2{rx * sin(theta2) * cos(phi)};
+      float y2{ry * sin(theta2) * sin(phi)};
+      float z2{rz * cos(theta2)};
       glColor4f(0.2f, 0.4f, 0.8f, 0.3f);
       glVertex3f(x1, y1, z1);
       glVertex3f(x2, y2, z2);
@@ -81,7 +83,7 @@ void drawBody() {
   glEnable(GL_LINE_SMOOTH);
   glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
   if (bodyType == 1) {
-    float s = p1 / 2.0f;
+    float s{p1 / 2.0f};
     glBegin(GL_QUADS);
     glVertex3f(-s, -s, s);
     glVertex3f(s, -s, s);
@@ -246,6 +248,7 @@ void timer(int) {
 }
 
 int main(int argc, char **argv) {
+
   if (argc >= 8) {
     bodyType = atoi(argv[1]);
     rx = atof(argv[2]);
@@ -260,10 +263,10 @@ int main(int argc, char **argv) {
       p2 = atof(argv[9]);
     if (argc >= 10)
       p3 = atof(argv[10]);
-    std::cout << "Тело: " << bodyType << ", эллипсоид: rx=" << rx
-              << " ry=" << ry << " rz=" << rz << ", ось вращения: (" << axisX
-              << ", " << axisY << ", " << axisZ << ")"
-              << ", размеры: " << p1 << " " << p2 << " " << p3 << std::endl;
+    std::cout << "Body: " << bodyType << ", ellipsoid: rx=" << rx
+          << " ry=" << ry << " rz=" << rz << ", rotation axis: (" << axisX
+          << ", " << axisY << ", " << axisZ << ")"
+          << ", sizes: " << p1 << " " << p2 << " " << p3 << std::endl;
   }
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

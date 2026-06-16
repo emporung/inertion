@@ -2,8 +2,14 @@
 #include <Eigen/Dense>
 #include <iomanip>
 #include <iostream>
+#include <filesystem>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
-int main() {
+
+int main(int argc, char** argv) {
+
   while (true) {
     std::cout << std::fixed << std::setprecision(3);
     std::cout << "\n=== Тензор инерции ===\n";
@@ -38,33 +44,40 @@ int main() {
     }
 
     Eigen::Matrix3f I{};
+
     float a{0}, b{0}, c{0}, r{0}, h{0};
+    float p1{0}, p2{0}, p3{0};
 
     switch (choice) {
     case 1:
-      a = readFloat("Сторона куба (м): ");
-      I = inertiaCube(m, a);
-      break;
+        a = readFloat("Сторона куба (м): ");
+        I = inertiaCube(m, a);
+        p1 = a;
+        break;
     case 2:
-      r = readFloat("Радиус (м): ");
-      I = inertiaSphere(m, r);
-      break;
+        r = readFloat("Радиус (м): ");
+        I = inertiaSphere(m, r);
+        p1 = r;
+        break;
     case 3:
-      a = readFloat("Длина по X (м): ");
-      b = readFloat("Длина по Y (м): ");
-      c = readFloat("Длина по Z (м): ");
-      I = inertiaBox(m, a, b, c);
-      break;
+        a = readFloat("Длина по X (м): ");
+        b = readFloat("Длина по Y (м): ");
+        c = readFloat("Длина по Z (м): ");
+        I = inertiaBox(m, a, b, c);
+        p1 = a; p2 = b; p3 = c;
+        break;
     case 4:
-      r = readFloat("Радиус (м): ");
-      h = readFloat("Высота: ");
-      I = inertiaCylinder(m, r, h);
-      break;
+        r = readFloat("Радиус (м): ");
+        h = readFloat("Высота: ");
+        I = inertiaCylinder(m, r, h);
+        p1 = r; p2 = h;
+        break;
     case 5:
-      r = readFloat("Радиус (м): ");
-      h = readFloat("Высота: ");
-      I = inertiaCone(m, r, h);
-      break;
+        r = readFloat("Радиус (м): ");
+        h = readFloat("Высота: ");
+        I = inertiaCone(m, r, h);
+        p1 = r; p2 = h;
+        break;
     }
 
     float moment = I(0, 0) * axis(0) * axis(0) + I(1, 1) * axis(1) * axis(1) +
@@ -90,38 +103,14 @@ int main() {
     std::cout << "I2 = " << I2 << "\n";
     std::cout << "I3 = " << I3 << std::endl;
 
-    int bodyType{choice};
-    float p1{0}, p2{0}, p3{0};
-    switch (bodyType) {
-    case 1:
-      p1 = a;
-      break;
-    case 2:
-      p1 = r;
-      break;
-    case 3:
-      p1 = a;
-      p2 = b;
-      p3 = c;
-      break;
-    case 4:
-      p1 = r;
-      p2 = h;
-      break;
-    case 5:
-      p1 = r;
-      p2 = h;
-      break;
-    }
-
-    std::string cmd = "start /b build\\visualize.exe " +
-                      std::to_string(bodyType) + " " + std::to_string(rx) +
-                      " " + std::to_string(ry) + " " + std::to_string(rz) +
-                      " " + std::to_string(axis(0)) + " " +
-                      std::to_string(axis(1)) + " " + std::to_string(axis(2)) +
-                      " " + std::to_string(p1) + " " + std::to_string(p2) +
-                      " " + std::to_string(p3);
-
+    auto exePath{std::filesystem::path(argv[0]).parent_path()};
+    std::string cmd = "cmd /c start \"\" \"" + (exePath / "visualize.exe").string() + "\" " +
+                  std::to_string(choice) + " " + std::to_string(rx) +
+                  " " + std::to_string(ry) + " " + std::to_string(rz) +
+                  " " + std::to_string(axis(0)) + " " +
+                  std::to_string(axis(1)) + " " + std::to_string(axis(2)) +
+                  " " + std::to_string(p1) + " " + std::to_string(p2) +
+                  " " + std::to_string(p3);
     system(cmd.c_str());
 
     std::cout << "\nНажмите Enter, чтобы продолжить...";

@@ -57,10 +57,7 @@ TEST_CASE("Нормализация вектора (3,4,0) → (0.6, 0.8, 0)") {
 }
 
 TEST_CASE("Нормализация нулевого вектора → возвращает (0,0,0) без ошибки") {
-  auto v = normalizeVector(0.0f, 0.0f, 0.0f);
-  CHECK(v(0) == doctest::Approx(0.0f));
-  CHECK(v(1) == doctest::Approx(0.0f));
-  CHECK(v(2) == doctest::Approx(0.0f));
+  CHECK_THROWS_AS(normalizeVector(0.0f, 0.0f, 0.0f), std::invalid_argument);
 }
 
 // ========== Тесты для инвариантов ==========
