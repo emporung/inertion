@@ -6,10 +6,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-
-
 int main(int argc, char** argv) {
-
   while (true) {
     std::cout << std::fixed << std::setprecision(3);
     std::cout << "\n=== Тензор инерции ===\n";
@@ -20,7 +17,7 @@ int main(int argc, char** argv) {
     std::cout << "5 - Конус\n";
     std::cout << "0 - Выход из программы\n";
 
-    int choice = (int)readFloat("Выберите тело: ");
+    int choice{(int)readFloat("Выберите тело: ")};
     if (choice == 0) {
       std::cout << "Выход из программы.\n";
       break;
@@ -30,10 +27,10 @@ int main(int argc, char** argv) {
       continue;
     }
 
-    float m = readFloat("Масса (кг): ");
-    float x = readFloat("Абсцисса оси: ");
-    float y = readFloat("Ордината оси: ");
-    float z = readFloat("Аппликата оси: ");
+    float m{readFloat("Масса (кг): ")};
+    float x{readFloat("Абсцисса оси: ")};
+    float y{readFloat("Ордината оси: ")};
+    float z{readFloat("Аппликата оси: ")};
 
     Eigen::Vector3f axis{};
     try {
@@ -80,8 +77,7 @@ int main(int argc, char** argv) {
         break;
     }
 
-    float moment = I(0, 0) * axis(0) * axis(0) + I(1, 1) * axis(1) * axis(1) +
-                   I(2, 2) * axis(2) * axis(2);
+    float moment{I(0, 0) * axis(0) * axis(0) + I(1, 1) * axis(1) * axis(1) + I(2, 2) * axis(2) * axis(2)};
 
     std::cout << "Тензор инерции:\n" << I << std::endl;
     std::cout << "Момент относительно оси (" << axis(0) << ", " << axis(1)
@@ -93,10 +89,9 @@ int main(int argc, char** argv) {
     std::cout << "Полуоси эллипсоида: " << rx << ", " << ry << ", " << rz
               << std::endl;
 
-    float I1 = I.trace();
-    float I2 = I(0, 0) * I(1, 1) + I(1, 1) * I(2, 2) + I(0, 0) * I(2, 2) -
-               I(0, 1) * I(0, 1) - I(0, 2) * I(0, 2) - I(1, 2) * I(1, 2);
-    float I3 = I.determinant();
+    float I1{I.trace()};
+    float I2{I(0, 0) * I(1, 1) + I(1, 1) * I(2, 2) + I(0, 0) * I(2, 2) - I(0, 1) * I(0, 1) - I(0, 2) * I(0, 2) - I(1, 2) * I(1, 2)};
+    float I3{I.determinant()};
 
     std::cout << "Инварианты тензора:\n";
     std::cout << "I1 = " << I1 << "\n";
