@@ -18,5 +18,3 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 Testing/
-cd
-cmake
