@@ -3,9 +3,7 @@
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
-#ifdef _WIN32
-#include <windows.h>
-#endif
+
 int main(int argc, char **argv) {
   while (true) {
     std::cout << std::fixed << std::setprecision(3);
@@ -48,19 +46,34 @@ int main(int argc, char **argv) {
     switch (choice) {
     case 1:
       a = readFloat("Сторона куба (м): ");
-      I = inertiaCube(m, a);
+      try {
+        I = inertiaCube(m, a);
+      } catch (const std::invalid_argument &e) {
+        std::cout << e.what() << " Повторите ввод.\n";
+        continue;
+      }
       p1 = a;
       break;
     case 2:
       r = readFloat("Радиус (м): ");
-      I = inertiaSphere(m, r);
+      try {
+        I = inertiaSphere(m, r);
+      } catch (const std::invalid_argument &e) {
+        std::cout << e.what() << " Повторите ввод.\n";
+        continue;
+      }
       p1 = r;
       break;
     case 3:
       a = readFloat("Длина по X (м): ");
       b = readFloat("Длина по Y (м): ");
       c = readFloat("Длина по Z (м): ");
-      I = inertiaBox(m, a, b, c);
+      try {
+        I = inertiaBox(m, a, b, c);
+      } catch (const std::invalid_argument &e) {
+        std::cout << e.what() << " Повторите ввод.\n";
+        continue;
+      }
       p1 = a;
       p2 = b;
       p3 = c;
@@ -68,14 +81,24 @@ int main(int argc, char **argv) {
     case 4:
       r = readFloat("Радиус (м): ");
       h = readFloat("Высота: ");
-      I = inertiaCylinder(m, r, h);
+      try {
+        I = inertiaCylinder(m, r, h);
+      } catch (const std::invalid_argument &e) {
+        std::cout << e.what() << " Повторите ввод.\n";
+        continue;
+      }
       p1 = r;
       p2 = h;
       break;
     case 5:
       r = readFloat("Радиус (м): ");
       h = readFloat("Высота: ");
-      I = inertiaCone(m, r, h);
+      try {
+        I = inertiaCone(m, r, h);
+      } catch (const std::invalid_argument &e) {
+        std::cout << e.what() << " Повторите ввод.\n";
+        continue;
+      }
       p1 = r;
       p2 = h;
       break;
