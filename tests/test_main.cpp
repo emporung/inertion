@@ -65,3 +65,34 @@ TEST_CASE("Инварианты куба: I1=12, I2=48, I3=64 для m=6, a=2") 
   CHECK(I2 == doctest::Approx(48.0f));
   CHECK(I3 == doctest::Approx(64.0f));
 }
+
+
+
+TEST_CASE("Куб: отрицательная масса --> исключение") {
+    CHECK_THROWS_AS(inertiaCube(-1.0f, 2.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaCube(1.0f, -2.0f), std::invalid_argument);
+}
+
+TEST_CASE("Шар: отрицательный радиус --> исключение") {
+    CHECK_THROWS_AS(inertiaSphere(-1.0f, 2.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaSphere(1.0f, -2.0f), std::invalid_argument);
+}
+
+TEST_CASE("Параллелепипед: отрицательный размер --> исключение") {
+    CHECK_THROWS_AS(inertiaBox(-1.0f, 2.0f, 3.0f, 4.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaBox(1.0f, -2.0f, 3.0f, 4.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaBox(1.0f, 2.0f, -3.0f, 4.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaBox(1.0f, 2.0f, 3.0f, -4.0f), std::invalid_argument);
+}
+
+TEST_CASE("Цилиндр: отрицательный радиус/высота --> исключение") {
+    CHECK_THROWS_AS(inertiaCylinder(-1.0f, 3.0f, 8.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaCylinder(2.0f, -3.0f, 8.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaCylinder(2.0f, 3.0f, -8.0f), std::invalid_argument);
+}
+
+TEST_CASE("Конус: отрицательный радиус/высота --> исключение") {
+    CHECK_THROWS_AS(inertiaCone(-3.0f, 2.0f, 5.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaCone(3.0f, -2.0f, 5.0f), std::invalid_argument);
+    CHECK_THROWS_AS(inertiaCone(3.0f, 2.0f, -5.0f), std::invalid_argument);
+}
