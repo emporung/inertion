@@ -1,12 +1,12 @@
 #include "inertia.h"
 #include <Eigen/Dense>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
-#include <filesystem>
 #ifdef _WIN32
 #include <windows.h>
 #endif
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   while (true) {
     std::cout << std::fixed << std::setprecision(3);
     std::cout << "\n=== Тензор инерции ===\n";
@@ -47,37 +47,42 @@ int main(int argc, char** argv) {
 
     switch (choice) {
     case 1:
-        a = readFloat("Сторона куба (м): ");
-        I = inertiaCube(m, a);
-        p1 = a;
-        break;
+      a = readFloat("Сторона куба (м): ");
+      I = inertiaCube(m, a);
+      p1 = a;
+      break;
     case 2:
-        r = readFloat("Радиус (м): ");
-        I = inertiaSphere(m, r);
-        p1 = r;
-        break;
+      r = readFloat("Радиус (м): ");
+      I = inertiaSphere(m, r);
+      p1 = r;
+      break;
     case 3:
-        a = readFloat("Длина по X (м): ");
-        b = readFloat("Длина по Y (м): ");
-        c = readFloat("Длина по Z (м): ");
-        I = inertiaBox(m, a, b, c);
-        p1 = a; p2 = b; p3 = c;
-        break;
+      a = readFloat("Длина по X (м): ");
+      b = readFloat("Длина по Y (м): ");
+      c = readFloat("Длина по Z (м): ");
+      I = inertiaBox(m, a, b, c);
+      p1 = a;
+      p2 = b;
+      p3 = c;
+      break;
     case 4:
-        r = readFloat("Радиус (м): ");
-        h = readFloat("Высота: ");
-        I = inertiaCylinder(m, r, h);
-        p1 = r; p2 = h;
-        break;
+      r = readFloat("Радиус (м): ");
+      h = readFloat("Высота: ");
+      I = inertiaCylinder(m, r, h);
+      p1 = r;
+      p2 = h;
+      break;
     case 5:
-        r = readFloat("Радиус (м): ");
-        h = readFloat("Высота: ");
-        I = inertiaCone(m, r, h);
-        p1 = r; p2 = h;
-        break;
+      r = readFloat("Радиус (м): ");
+      h = readFloat("Высота: ");
+      I = inertiaCone(m, r, h);
+      p1 = r;
+      p2 = h;
+      break;
     }
 
-    float moment{I(0, 0) * axis(0) * axis(0) + I(1, 1) * axis(1) * axis(1) + I(2, 2) * axis(2) * axis(2)};
+    float moment{I(0, 0) * axis(0) * axis(0) + I(1, 1) * axis(1) * axis(1) +
+                 I(2, 2) * axis(2) * axis(2)};
 
     std::cout << "Тензор инерции:\n" << I << std::endl;
     std::cout << "Момент относительно оси (" << axis(0) << ", " << axis(1)
@@ -90,7 +95,8 @@ int main(int argc, char** argv) {
               << std::endl;
 
     float I1{I.trace()};
-    float I2{I(0, 0) * I(1, 1) + I(1, 1) * I(2, 2) + I(0, 0) * I(2, 2) - I(0, 1) * I(0, 1) - I(0, 2) * I(0, 2) - I(1, 2) * I(1, 2)};
+    float I2{I(0, 0) * I(1, 1) + I(1, 1) * I(2, 2) + I(0, 0) * I(2, 2) -
+             I(0, 1) * I(0, 1) - I(0, 2) * I(0, 2) - I(1, 2) * I(1, 2)};
     float I3{I.determinant()};
 
     std::cout << "Инварианты тензора:\n";
@@ -99,13 +105,13 @@ int main(int argc, char** argv) {
     std::cout << "I3 = " << I3 << std::endl;
 
     auto exePath{std::filesystem::path(argv[0]).parent_path()};
-    std::string cmd = "cmd /c start \"\" \"" + (exePath / "visualize.exe").string() + "\" " +
-                  std::to_string(choice) + " " + std::to_string(rx) +
-                  " " + std::to_string(ry) + " " + std::to_string(rz) +
-                  " " + std::to_string(axis(0)) + " " +
-                  std::to_string(axis(1)) + " " + std::to_string(axis(2)) +
-                  " " + std::to_string(p1) + " " + std::to_string(p2) +
-                  " " + std::to_string(p3);
+    std::string cmd = "cmd /c start \"\" \"" +
+                      (exePath / "visualize.exe").string() + "\" " +
+                      std::to_string(choice) + " " + std::to_string(rx) + " " +
+                      std::to_string(ry) + " " + std::to_string(rz) + " " +
+                      std::to_string(axis(0)) + " " + std::to_string(axis(1)) +
+                      " " + std::to_string(axis(2)) + " " + std::to_string(p1) +
+                      " " + std::to_string(p2) + " " + std::to_string(p3);
     system(cmd.c_str());
 
     std::cout << "\nНажмите Enter, чтобы продолжить...";

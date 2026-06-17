@@ -264,9 +264,9 @@ int main(int argc, char **argv) {
     if (argc >= 10)
       p3 = atof(argv[10]);
     std::cout << "Body: " << bodyType << ", ellipsoid: rx=" << rx
-          << " ry=" << ry << " rz=" << rz << ", rotation axis: (" << axisX
-          << ", " << axisY << ", " << axisZ << ")"
-          << ", sizes: " << p1 << " " << p2 << " " << p3 << std::endl;
+              << " ry=" << ry << " rz=" << rz << ", rotation axis: (" << axisX
+              << ", " << axisY << ", " << axisZ << ")"
+              << ", sizes: " << p1 << " " << p2 << " " << p3 << std::endl;
   }
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

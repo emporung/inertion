@@ -16,7 +16,7 @@
  * \throw std::runtime_error On EOF
  * \throw std::invalid_argument On non-numeric input
  */
-float readFloat(const std::string& prompt);
+float readFloat(const std::string &prompt);
 
 /*!
  * \brief Normalizes a vector (makes length = 1)

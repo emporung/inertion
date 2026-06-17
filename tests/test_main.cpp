@@ -45,7 +45,6 @@ TEST_CASE("Конус: m=3, R=2, h=5") {
   CHECK(I(2, 2) == doctest::Approx(3.6f));
 }
 
-
 TEST_CASE("Нормализация вектора (3,4,0) --> (0.6, 0.8, 0)") {
   auto v{normalizeVector(3.0f, 4.0f, 0.0f)};
   CHECK(v(0) == doctest::Approx(0.6f));
@@ -56,7 +55,6 @@ TEST_CASE("Нормализация вектора (3,4,0) --> (0.6, 0.8, 0)") {
 TEST_CASE("Нормализация нулевого вектора --> возвращает (0,0,0) без ошибки") {
   CHECK_THROWS_AS(normalizeVector(0.0f, 0.0f, 0.0f), std::invalid_argument);
 }
-
 
 TEST_CASE("Инварианты куба: I1=12, I2=48, I3=64 для m=6, a=2") {
   auto I{inertiaCube(6.0f, 2.0f)};
